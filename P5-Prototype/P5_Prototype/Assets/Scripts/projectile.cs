@@ -158,14 +158,14 @@ public class projectile : MonoBehaviour
     {
         
         if (collision.gameObject.tag == "shield"){
-            Debug.Log("Executed");
+            
             go = false;
             //audiomanager.instance.PlayArrowBlock();
             WaveManager.instance.blockamount[WaveNumber] ++;
             WaveManager.instance.currentBlockCombo ++;
             WaveManager.instance.currentMissCombo = 0;
             transform.SetParent(collision.gameObject.transform);
-            Debug.Log(gameObject.name);
+            
             rigid.isKinematic = true;
             Destroy(gameObject, 10);
         
