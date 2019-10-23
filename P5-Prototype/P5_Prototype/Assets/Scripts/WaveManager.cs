@@ -7,7 +7,7 @@ public class WaveManager : MonoBehaviour
    
     public static WaveManager instance = null;
   
-    
+    public int maxWaves;
     public float timeToReachTarget;
 
     public float waitTimeBeforeStart;
@@ -23,13 +23,10 @@ public class WaveManager : MonoBehaviour
     public float CurrentFlow = 1f;
     public float flowMin;
     private List<float> AverageFlowList = new List<float>();
-    public float AverageFlow;
+    [HideInInspector] public float AverageFlow;
     public float currentBlockCombo;
     public float currentMissCombo;
-    public float flowblock;
-    public float flowmiss;
-    public float flowadjustamount;
-    public int maxWaves;
+    
     
     int waitTime;
 
@@ -98,7 +95,7 @@ public class WaveManager : MonoBehaviour
                 }
             }
         }
-        // Debug.Log(string.Format("weird pixels {0}, colored pixels {1}", weirdPixels, coloredPixels));
+        //Debug.Log(string.Format("weird pixels {0}, colored pixels {1}", weirdPixels, coloredPixels));
 
     }
 
@@ -174,7 +171,7 @@ public class WaveManager : MonoBehaviour
         }
 
 
-        Debug.Log("Send out wave " + wavenumber + " based on flow of " + CurrentFlow);
+        //Debug.Log("Send out wave " + wavenumber + " based on flow of " + CurrentFlow);
         if (GenerateRandomWaves && wavenumber<maxWaves)
         {
 

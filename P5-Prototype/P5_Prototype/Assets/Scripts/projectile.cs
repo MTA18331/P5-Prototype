@@ -12,14 +12,14 @@ public class projectile : MonoBehaviour
     public GameObject  Peak; 
     public GameObject target;
     
-    GameObject[] startPositions;
     bool go = false;
     float timeToReachTarget;
     float t;
     
     enum ProjectileType { none, top, mid, bot };
     ProjectileType pt;
-    
+
+    public bool randomStartpos;
     public float LaunchAngle = 60f;
     Rigidbody rigid;
     
@@ -44,7 +44,7 @@ public class projectile : MonoBehaviour
         } else {
             Debug.Log("problems with findings targets!");
         }
-        startpos = RandomStartPos();
+        startpos = GetStartPos();
         timeToReachTarget = WaveManager.instance.timeToReachTarget;
         transform.position = startpos.transform.position;
         Peak = startpos.transform.GetChild(0).gameObject;
@@ -110,22 +110,48 @@ public class projectile : MonoBehaviour
 
         float angle = Mathf.Atan2 (-direction.y, direction.x) * Mathf.Rad2Deg;
         //transform.rotation = (0, angle, 0);
-        Vector3 ops= new Vector3(0, angle, 0)
+        Vector3 ops = new Vector3(0, angle, 0);
         transform.rotation = Quaternion.LookRotation( ops );
     }
 
-    GameObject RandomStartPos()
+    GameObject GetStartPos()
     {
-        try{
-            startPositions = GameObject.FindGameObjectsWithTag("startPosition");
-            int r = Random.Range(0, startPositions.Length);
-            //Debug.Log("spawning from " + startPositions[r].name);
-            return startPositions[r];
+        if (randomStartpos)
+        {
+            try
+            {
+                GameObject[] startPositions = GameObject.FindGameObjectsWithTag("startPosition");
+                int r = Random.Range(0, startPositions.Length);
+                //Debug.Log("spawning from " + startPositions[r].name);
+                return startPositions[r];
+            }
+            catch
+            {
+                Debug.LogError("Projectiles failed to find starting positions");
+                return null;
+            }
+        } else
+        {
+            // alternativ ide: pil1->pos1, pil2->pos2 -> pil3->pos3 indtil igennem alle startpos, derefter pilx->pos1, pilx+1->pos2
+            GameObject[] startPositions= GameObject.FindGameObjectsWithTag("startPosition");
+            if (pt == ProjectileType.top)
+            {
+                return startPositions[2]; // top start pos
+            }
+            else if (pt == ProjectileType.mid)
+            {
+                return startPositions[1]; // mid start pos
+            }
+            else if (pt == ProjectileType.bot)
+            {
+                return startPositions[0]; // bottom start pos
+            }
+            else
+            {
+                Debug.Log("problems with findings starting posistions!");
+                return null;
+            }
         }
-        catch{
-            Debug.LogError("Projectiles failed to find starting positions");
-            return null;
-        }    
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -138,11 +164,11 @@ public class projectile : MonoBehaviour
             WaveManager.instance.blockamount[WaveNumber] ++;
             WaveManager.instance.currentBlockCombo ++;
             WaveManager.instance.currentMissCombo = 0;
-            //transform.SetParent(collision.gameObject.transform);
-            //Destroy(gameObject, 10);
-            
             transform.SetParent(collision.gameObject.transform);
-            Destroy(gameObject, 15);
+            Debug.Log(gameObject.name);
+            rigid.isKinematic = true;
+            Destroy(gameObject, 10);
+        
         }
         else if (collision.gameObject.tag == "PTop" || collision.gameObject.tag == "PMid" || collision.gameObject.tag == "PBot")
         {

@@ -241,8 +241,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 100
@@ -526,6 +524,16 @@ PrefabInstance:
       propertyPath: m_TagString
       value: shield
       objectReference: {fileID: 0}
+    - target: {fileID: -6054058774237248251, guid: 5c7b7bb417605d64994bd80658a46bbc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 681f397ea6436d14380c88652ff8314d, type: 2}
+    - target: {fileID: -4735064939027224939, guid: 5c7b7bb417605d64994bd80658a46bbc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 681f397ea6436d14380c88652ff8314d, type: 2}
     - target: {fileID: -4216859302048453862, guid: 5c7b7bb417605d64994bd80658a46bbc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -596,22 +604,12 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.2
       objectReference: {fileID: 0}
-    - target: {fileID: 1711277887553122256, guid: 5c7b7bb417605d64994bd80658a46bbc,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 681f397ea6436d14380c88652ff8314d, type: 2}
-    - target: {fileID: -6054058774237248251, guid: 5c7b7bb417605d64994bd80658a46bbc,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 681f397ea6436d14380c88652ff8314d, type: 2}
-    - target: {fileID: -4735064939027224939, guid: 5c7b7bb417605d64994bd80658a46bbc,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 681f397ea6436d14380c88652ff8314d, type: 2}
     - target: {fileID: -2684987433343351570, guid: 5c7b7bb417605d64994bd80658a46bbc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 681f397ea6436d14380c88652ff8314d, type: 2}
+    - target: {fileID: 1711277887553122256, guid: 5c7b7bb417605d64994bd80658a46bbc,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -724,7 +722,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 757471812}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8d076a152ff09594094661fafc0fcf11, type: 3}
   m_Name: 
@@ -777,7 +775,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 977372867}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8d076a152ff09594094661fafc0fcf11, type: 3}
   m_Name: 
@@ -1297,6 +1295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4860c57fff8727c4999d4d792e27063c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxWaves: 20
   timeToReachTarget: 5
   waitTimeBeforeStart: 0
   waitTimeBeforeEnd: 10
@@ -1304,18 +1303,34 @@ MonoBehaviour:
   ProjectileDad: {fileID: 1458591017}
   Projectile: {fileID: 6262081200205992454, guid: 0d2485759c791d94db6893aae9547509,
     type: 3}
-  GenerateRandomWaves: 1
-  waveTextures: []
+  GenerateRandomWaves: 0
+  waveTextures:
+  - {fileID: 2800000, guid: b12f1dccf69588f4e8494ddfefa0dfe7, type: 3}
+  - {fileID: 2800000, guid: 23c8cadab8802ce428c6d47ddeb79e9a, type: 3}
+  - {fileID: 2800000, guid: ee7771883d05b0544b68b79c2d6cf174, type: 3}
+  - {fileID: 2800000, guid: aed07d2b87a36484281cf9e14b547190, type: 3}
+  - {fileID: 2800000, guid: df4d3a3695d105546a1cacaa7114c145, type: 3}
+  - {fileID: 2800000, guid: b12f1dccf69588f4e8494ddfefa0dfe7, type: 3}
+  - {fileID: 2800000, guid: 23c8cadab8802ce428c6d47ddeb79e9a, type: 3}
+  - {fileID: 2800000, guid: ee7771883d05b0544b68b79c2d6cf174, type: 3}
+  - {fileID: 2800000, guid: aed07d2b87a36484281cf9e14b547190, type: 3}
+  - {fileID: 2800000, guid: df4d3a3695d105546a1cacaa7114c145, type: 3}
+  - {fileID: 2800000, guid: b12f1dccf69588f4e8494ddfefa0dfe7, type: 3}
+  - {fileID: 2800000, guid: 23c8cadab8802ce428c6d47ddeb79e9a, type: 3}
+  - {fileID: 2800000, guid: ee7771883d05b0544b68b79c2d6cf174, type: 3}
+  - {fileID: 2800000, guid: aed07d2b87a36484281cf9e14b547190, type: 3}
+  - {fileID: 2800000, guid: df4d3a3695d105546a1cacaa7114c145, type: 3}
+  - {fileID: 2800000, guid: b12f1dccf69588f4e8494ddfefa0dfe7, type: 3}
+  - {fileID: 2800000, guid: 23c8cadab8802ce428c6d47ddeb79e9a, type: 3}
+  - {fileID: 2800000, guid: ee7771883d05b0544b68b79c2d6cf174, type: 3}
+  - {fileID: 2800000, guid: aed07d2b87a36484281cf9e14b547190, type: 3}
+  - {fileID: 2800000, guid: df4d3a3695d105546a1cacaa7114c145, type: 3}
   flowMax: 2.5
   CurrentFlow: 1
   flowMin: 0.2
   AverageFlow: 0
   currentBlockCombo: 0
   currentMissCombo: 0
-  flowblock: 3
-  flowmiss: 3
-  flowadjustamount: 0.01
-  maxWaves: 20
   blockamount: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   missamount: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 --- !u!4 &1629346325

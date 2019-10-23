@@ -20,7 +20,7 @@ public class Shield : MonoBehaviour
         
         if(other.gameObject.tag == "projectile"){
             
-            Destroy(other.gameObject);
+           // Destroy(other.gameObject);
         }
     }
 }
