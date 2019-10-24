@@ -11,10 +11,13 @@ public class projectile : MonoBehaviour
     public GameObject startpos;
     public GameObject  Peak; 
     public GameObject target;
-    
-    bool go = false;
+    public Transform box;
+    public float speed = 0.4f;
+    bool go = false;    
     float timeToReachTarget;
-    float t;
+    public float t;
+
+   
     
     enum ProjectileType { none, top, mid, bot };
     ProjectileType pt;
@@ -50,9 +53,11 @@ public class projectile : MonoBehaviour
         Peak = startpos.transform.GetChild(0).gameObject;
         GameObject.FindGameObjectWithTag("Peak");
         rigid = GetComponent<Rigidbody>();
-       // transform.rotation = Quaternion.LookRotation(rigid.velocity) * transform.rotation;
+        // transform.rotation = Quaternion.LookRotation(rigid.velocity) * transform.rotation;
         //transform.rotation = Quaternion.LookRotation(transform.position);
         //transform.rotation = Quaternion.LookRotation(-rigid.velocity);
+        
+        transform.rotation = Quaternion.LookRotation(-Peak.transform.position);
         StartCoroutine(GoTimer());
     }
 
@@ -67,7 +72,24 @@ public class projectile : MonoBehaviour
            //transform.position = Vector3.Lerp(startpos.transform.position, target.transform.position, t);
             
             Launch();
-
+            if (t < 0.22f)
+            {
+                Vector3 sdirection = Peak.transform.position - transform.position;
+                Quaternion rotation = Quaternion.LookRotation(-sdirection);
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotation, speed);
+            }
+            if (t >0.23f)
+            {
+                Vector3 direction = target.transform.position - transform.position;
+                Quaternion rotation = Quaternion.LookRotation(-direction);
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotation, (t+0.2f)*Time.deltaTime);
+            }
+            if (t > 0.60f)
+            {
+                Vector3 direction = target.transform.position - transform.position;
+                Quaternion rotation = Quaternion.LookRotation(-direction);
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotation, (t + 0.3f) * Time.deltaTime);
+            }
         }
         
        
@@ -99,19 +121,18 @@ public class projectile : MonoBehaviour
 
     void Launch()
     {
-        
-        //rigid.velocity = -startpos.transform.forward*5;
-        transform.position = (1.0f - t) * (1.0f - t) * startpos.transform.position + 2*(1-t)*t*Peak.transform.position+(t*t)*target.transform.position;
-        //transform.rotation = Quaternion.LookRotation(-rigid.velocity);
-        Vector3 direction = new Vector3(0,0,0);
-        direction.x = transform.position.x - target.transform.position.x;
-        direction.y = transform.position.y - target.transform.position.y;
-        direction.z = transform.position.z - target.transform.position.z;
 
-        float angle = Mathf.Atan2 (-direction.y, direction.x) * Mathf.Rad2Deg;
+        //rigid.velocity = -startpos.transform.forward*5;
+        transform.position = (1.0f - t) * (1.0f - t) * startpos.transform.position + 2 * (1 - t) * t * Peak.transform.position + (t * t) * target.transform.position;
+        // Vector3 direction = new Vector3(0,0,0);
+        //direction.x = transform.position.x - target.transform.position.x;
+        //direction.y = transform.position.y - target.transform.position.y;
+        //direction.z = transform.position.z - target.transform.position.z;
+
+        //float angle = Mathf.Atan2 (-direction.y, direction.x) * Mathf.Rad2Deg;
         //transform.rotation = (0, angle, 0);
-        Vector3 ops = new Vector3(0, angle, 0);
-        transform.rotation = Quaternion.LookRotation( ops );
+        // Vector3 ops = new Vector3(0, angle, 0);
+        // transform.rotation = Quaternion.LookRotation( ops );
     }
 
     GameObject GetStartPos()

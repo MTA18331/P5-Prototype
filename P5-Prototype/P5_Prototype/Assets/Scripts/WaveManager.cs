@@ -9,7 +9,6 @@ public class WaveManager : MonoBehaviour
   
     public int maxWaves;
     public float timeToReachTarget;
-
     public float waitTimeBeforeStart;
     public float waitTimeBeforeEnd;
     public GameObject EndCanvas;
@@ -17,7 +16,7 @@ public class WaveManager : MonoBehaviour
     public GameObject Projectile;
     public bool GenerateRandomWaves;
     public Texture2D[] waveTextures;
-
+    public GameObject peak;
    
     public float flowMax;
     public float CurrentFlow = 1f;
@@ -102,7 +101,7 @@ public class WaveManager : MonoBehaviour
     void spawnProjectile(float x, string place)
     {
         //GameObject pro = null;
-        GameObject pro = Instantiate(Projectile, transform.position, transform.rotation);
+        GameObject pro = Instantiate(Projectile, transform.position, peak.transform.rotation);
         pro.GetComponent<projectile>().waitTime = x* CurrentFlow;
         pro.GetComponent<projectile>().WaveNumber = wavenumber;
         pro.transform.SetParent(ProjectileDad.transform);
