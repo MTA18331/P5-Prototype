@@ -9,6 +9,7 @@ public class WaveManager : MonoBehaviour
   
     public int maxWaves;
     public float timeToReachTarget;
+
     public float waitTimeBeforeStart;
     public float waitTimeBeforeEnd;
     public GameObject EndCanvas;
@@ -16,13 +17,13 @@ public class WaveManager : MonoBehaviour
     public GameObject Projectile;
     public bool GenerateRandomWaves;
     public Texture2D[] waveTextures;
-    public GameObject peak;
+
    
     public float flowMax;
     public float CurrentFlow = 1f;
     public float flowMin;
     private List<float> AverageFlowList = new List<float>();
-    [HideInInspector] public float AverageFlow;
+   // [HideInInspector] public float AverageFlow;
     public float currentBlockCombo;
     public float currentMissCombo;
     
@@ -32,7 +33,7 @@ public class WaveManager : MonoBehaviour
     int wavenumber=0; // husk at første wave er nummer 0
     public int[] blockamount = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     public int[] missamount = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-
+    public float[] WaveFlow= { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
     void Awake()
     {
@@ -101,7 +102,7 @@ public class WaveManager : MonoBehaviour
     void spawnProjectile(float x, string place)
     {
         //GameObject pro = null;
-        GameObject pro = Instantiate(Projectile, transform.position, peak.transform.rotation);
+        GameObject pro = Instantiate(Projectile, transform.position, transform.rotation);
         pro.GetComponent<projectile>().waitTime = x* CurrentFlow;
         pro.GetComponent<projectile>().WaveNumber = wavenumber;
         pro.transform.SetParent(ProjectileDad.transform);
@@ -128,7 +129,7 @@ public class WaveManager : MonoBehaviour
 
     void gameEnd()
     {
-        CSV.instance.Save( blockamount, missamount);
+        CSV.instance.Save( blockamount, missamount, WaveFlow);
     }
 
     void Flow()
@@ -153,12 +154,6 @@ public class WaveManager : MonoBehaviour
              currentBlockCombo = 0;
             }
         }
-        float tempFlow = 0;
-        for (int i = 0; i < AverageFlowList.Count; i++)
-        {
-            tempFlow += AverageFlowList[i];
-        }
-        AverageFlow = tempFlow / AverageFlowList.Count;
     }
 
     IEnumerator Waves()
@@ -170,7 +165,7 @@ public class WaveManager : MonoBehaviour
         }
 
 
-        //Debug.Log("Send out wave " + wavenumber + " based on flow of " + CurrentFlow);
+        Debug.Log("Send out wave " + wavenumber + " based on flow of " + CurrentFlow);
         if (GenerateRandomWaves && wavenumber<maxWaves)
         {
 
@@ -193,11 +188,13 @@ public class WaveManager : MonoBehaviour
                 
 
             }
+            WaveFlow[wavenumber] = CurrentFlow;
             wavenumber++;
         } else if (wavenumber < maxWaves && !GenerateRandomWaves)
         {
 
            buildWave(waveTextures[wavenumber]);
+            WaveFlow[wavenumber] = CurrentFlow;
             wavenumber++;
         }else
         {
@@ -207,7 +204,7 @@ public class WaveManager : MonoBehaviour
             StopCoroutine(Waves());
         }
 
-        AverageFlowList.Add(CurrentFlow);
+       
         yield return new WaitForSeconds(CurrentFlow*10);
         StartCoroutine(Waves());
            
