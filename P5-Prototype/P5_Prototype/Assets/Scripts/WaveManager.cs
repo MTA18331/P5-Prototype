@@ -14,7 +14,8 @@ public class WaveManager : MonoBehaviour
     public float waitTimeBeforeEnd;
     public GameObject EndCanvas;
     public GameObject ProjectileDad;
-    public GameObject Projectile;
+    public GameObject Arrow;
+    public GameObject Spear;
     public bool GenerateRandomWaves;
     public Texture2D[] waveTextures;
 
@@ -34,7 +35,7 @@ public class WaveManager : MonoBehaviour
     public int[] blockamount = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     public int[] missamount = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
     public float[] WaveFlow= { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    public AudioClip[] MusicClip;
+    public AudioClip[] SoundClips;
 
     void Awake()
     {
@@ -102,30 +103,45 @@ public class WaveManager : MonoBehaviour
 
     void spawnProjectile(float x, string place)
     {
-        //GameObject pro = null;
-        GameObject pro = Instantiate(Projectile, transform.position, transform.rotation);
-        pro.GetComponent<projectile>().waitTime = x* CurrentFlow;
-        pro.GetComponent<projectile>().WaveNumber = wavenumber;
-        pro.transform.SetParent(ProjectileDad.transform);
+        GameObject pro = null;
+        
         
  
         switch (place)
         {
             case "bot":
-                pro.GetComponent<projectile>().setEnum("bot");
-                break;
+                /*  pro = Instantiate(Spear, transform.position, transform.rotation);
+                  pro.GetComponent<Spear>().setEnum("bot");
+                  pro.GetComponent<Spear>().waitTime = x * CurrentFlow;
+                  pro.GetComponent<Spear>().WaveNumber = wavenumber;*/
+                pro = Instantiate(Arrow, transform.position, transform.rotation);
+                pro.GetComponent<Arrow>().setEnum("bot");
+                pro.GetComponent<Arrow>().waitTime = x * CurrentFlow;
+                pro.GetComponent<Arrow>().WaveNumber = wavenumber;
+                break;      
             case "mid":
-                pro.GetComponent<projectile>().setEnum("mid");
+                /* pro = Instantiate(Spear, transform.position, transform.rotation);
+                 pro.GetComponent<Spear>().setEnum("mid");
+                 pro.GetComponent<Spear>().waitTime = x * CurrentFlow;
+                 pro.GetComponent<Spear>().WaveNumber = wavenumber;*/
+                pro = Instantiate(Arrow, transform.position, transform.rotation);
+                pro.GetComponent<Arrow>().setEnum("mid");
+                pro.GetComponent<Arrow>().waitTime = x * CurrentFlow;
+                pro.GetComponent<Arrow>().WaveNumber = wavenumber;
                 break;
             case "top":
-                pro.GetComponent<projectile>().setEnum("top");
+                pro = Instantiate(Arrow, transform.position, transform.rotation);
+                pro.GetComponent<Arrow>().setEnum("top");
+                pro.GetComponent<Arrow>().waitTime = x * CurrentFlow;
+                pro.GetComponent<Arrow>().WaveNumber = wavenumber;
                 break;
-
-            default:
+           default:
                 Debug.Log("Well, shit");
-               
                 break;
         }
+
+     
+        pro.transform.SetParent(ProjectileDad.transform);
     }
 
     void gameEnd()
@@ -185,9 +201,6 @@ public class WaveManager : MonoBehaviour
                 {
                     spawnProjectile(i, "mid");
                 }
-                
-                
-
             }
             WaveFlow[wavenumber] = CurrentFlow;
             wavenumber++;

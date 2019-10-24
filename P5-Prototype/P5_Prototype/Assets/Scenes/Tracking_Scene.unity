@@ -1302,8 +1302,8 @@ MonoBehaviour:
   waitTimeBeforeEnd: 10
   EndCanvas: {fileID: 2000376990}
   ProjectileDad: {fileID: 1458591017}
-  Projectile: {fileID: 6262081200205992454, guid: 0d2485759c791d94db6893aae9547509,
-    type: 3}
+  Arrow: {fileID: 6262081200205992454, guid: 0d2485759c791d94db6893aae9547509, type: 3}
+  Spear: {fileID: 8188168175303830843, guid: 0ed29eb26cbcff744b3eb1b1ae9ec3f5, type: 3}
   GenerateRandomWaves: 0
   waveTextures:
   - {fileID: 2800000, guid: b12f1dccf69588f4e8494ddfefa0dfe7, type: 3}
@@ -1354,7 +1354,7 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  MusicClip:
+  SoundClips:
   - {fileID: 8300000, guid: 49364a89fff19bf48aad280dffa31852, type: 3}
   - {fileID: 8300000, guid: f1b03885f45fdab44b5d6ce892011881, type: 3}
   - {fileID: 8300000, guid: 65733b1ee3071f845b1d0ff7322ef2bc, type: 3}
@@ -1368,7 +1368,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1629346323}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 11.43}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
