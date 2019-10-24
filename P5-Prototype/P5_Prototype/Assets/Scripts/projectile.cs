@@ -22,15 +22,15 @@ public class projectile : MonoBehaviour
     public bool randomStartpos;
     public float LaunchAngle = 60f;
     Rigidbody rigid;
-    
-    
+	Vector3 makePeak;
     
 
     // Start is called before the first frame update
     void Start()
     {
+		makePeak = new Vector3(0.0f, 5.0f, 0.0f);
 
-        if (pt == ProjectileType.top)
+		if (pt == ProjectileType.top)
         {
             target = GameObject.FindGameObjectWithTag("PTop");
         }
@@ -64,8 +64,7 @@ public class projectile : MonoBehaviour
         {
            //audiomanager.instance.PlayArrowStarting();
             t += Time.deltaTime / timeToReachTarget;
-           //transform.position = Vector3.Lerp(startpos.transform.position, target.transform.position, t);
-            
+           //transform.position = Vector3.Lerp(startpos.transform.position, target.transform.position, t);     
             Launch();
 
         }
@@ -99,20 +98,12 @@ public class projectile : MonoBehaviour
 
     void Launch()
     {
-        
-        //rigid.velocity = -startpos.transform.forward*5;
-        transform.position = (1.0f - t) * (1.0f - t) * startpos.transform.position + 2*(1-t)*t*Peak.transform.position+(t*t)*target.transform.position;
-        //transform.rotation = Quaternion.LookRotation(-rigid.velocity);
-        Vector3 direction = new Vector3(0,0,0);
-        direction.x = transform.position.x - target.transform.position.x;
-        direction.y = transform.position.y - target.transform.position.y;
-        direction.z = transform.position.z - target.transform.position.z;
 
-        float angle = Mathf.Atan2 (-direction.y, direction.x) * Mathf.Rad2Deg;
-        //transform.rotation = (0, angle, 0);
-        Vector3 ops = new Vector3(0, angle, 0);
-        transform.rotation = Quaternion.LookRotation( ops );
-    }
+		transform.position = (1.0f - t) * (1.0f - t) * startpos.transform.position + 2*(1-t)*t*(startpos.transform.position+makePeak)+(t*t)*target.transform.position;
+		//transform.rotation = Quaternion.LookRotation(transform.position);
+		transform.rotation = Quaternion.LookRotation(startpos.transform.position + makePeak);
+
+	}
 
     GameObject GetStartPos()
     {
