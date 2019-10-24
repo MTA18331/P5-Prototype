@@ -12,7 +12,7 @@ public class CSV : MonoBehaviour
     public bool MR;
     private List<string[]> rowData = new List<string[]>();
     int[] Wavenumber = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 };
-    float [] BlockPercent = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+   
 
 
     // Use this for initialization
@@ -24,7 +24,7 @@ public class CSV : MonoBehaviour
             instance = this;
     }
 
-    public void Save(int[] Waveblocked, int[] WaveMissed)
+    public void Save(int[] Waveblocked, int[] WaveMissed, float[] WaveFlow)
     {
      
         // Creating First row of titles manually
@@ -34,14 +34,13 @@ public class CSV : MonoBehaviour
         rowDataTemp[2] = "Wavenumber";
         rowDataTemp[3] = "Blocked";
         rowDataTemp[4] = "Missed";
-        rowDataTemp[5] = "Percent Blocked";
+        rowDataTemp[5] = "Average Flow";
         rowData.Add(rowDataTemp);
 
         
         for (int i = 0; i < Wavenumber.Length; i++)
         {
-            float waveamount = Waveblocked[i] + WaveMissed[i];
-            BlockPercent[i] = Mathf.FloorToInt((Waveblocked[i] / waveamount) * 100);
+            
             
             rowDataTemp = new string[6];
             rowDataTemp[0] = ParticipantNumber.ToString();
@@ -49,7 +48,7 @@ public class CSV : MonoBehaviour
             rowDataTemp[2] = Wavenumber[i].ToString();
             rowDataTemp[3] = Waveblocked[i].ToString();
             rowDataTemp[4] = WaveMissed[i].ToString();
-            rowDataTemp[5] = BlockPercent[i].ToString();
+            rowDataTemp[5] = WaveFlow[i].ToString();
             rowData.Add(rowDataTemp);
         }
 
