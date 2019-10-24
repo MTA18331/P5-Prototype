@@ -25,13 +25,33 @@ public class projectile : MonoBehaviour
     public bool randomStartpos;
     public float LaunchAngle = 60f;
     Rigidbody rigid;
-    
-    
-    
+
+    public AudioClip[] MusicClip;
+    public AudioSource MusicSource;
+    public AudioClip FleshHit;
+    public AudioSource FleshHitSource;
+    public AudioClip ShieldHit;
+    public AudioSource ShieldHitSource;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
+        MusicSource = gameObject.AddComponent<AudioSource>();
+        MusicClip = WaveManager.instance.MusicClip;
+        MusicSource.playOnAwake = false;
+        int R = Random.Range(0, 2);
+        MusicSource.clip = MusicClip[R];
+
+        FleshHitSource = gameObject.AddComponent<AudioSource>();
+        FleshHitSource.playOnAwake = false;
+        FleshHitSource.clip = MusicClip[3];
+
+        ShieldHitSource = gameObject.AddComponent<AudioSource>();
+        ShieldHitSource.playOnAwake = false;
+        ShieldHitSource.clip = MusicClip[4];
+
 
         if (pt == ProjectileType.top)
         {
@@ -179,9 +199,10 @@ public class projectile : MonoBehaviour
     {
         
         if (collision.gameObject.tag == "shield"){
-            
+
+            ShieldHitSource.Play();
             go = false;
-            //audiomanager.instance.PlayArrowBlock();
+            
             WaveManager.instance.blockamount[WaveNumber] ++;
             WaveManager.instance.currentBlockCombo ++;
             WaveManager.instance.currentMissCombo = 0;
@@ -193,7 +214,8 @@ public class projectile : MonoBehaviour
         }
         else if (collision.gameObject.tag == "PTop" || collision.gameObject.tag == "PMid" || collision.gameObject.tag == "PBot")
         {
-            //audiomanager.instance.PlayHurt();
+            MusicSource.Play();
+            FleshHitSource.Play();
             WaveManager.instance.missamount[WaveNumber] ++;
             WaveManager.instance.currentBlockCombo = 0;
             WaveManager.instance.currentMissCombo ++;
