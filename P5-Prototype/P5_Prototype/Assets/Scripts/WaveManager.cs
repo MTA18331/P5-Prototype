@@ -155,18 +155,18 @@ public class WaveManager : MonoBehaviour
         {
             if (CurrentFlow > flowMin)
             {
-                CurrentFlow -= 0.05f;
+                CurrentFlow -= 0.4f*Time.deltaTime;
                 currentBlockCombo = 0;
                 currentMissCombo=0;
               
             }
         }
-        if (currentMissCombo % 6 ==1)
+        if (currentMissCombo % 3 ==1)
         {
             if (CurrentFlow < flowMax)
             {
-
-            CurrentFlow += 0.05f;
+                Debug.Log(currentMissCombo % 3);
+            CurrentFlow += 0.4f*Time.deltaTime;
             currentMissCombo=0;
              currentBlockCombo = 0;
             }
