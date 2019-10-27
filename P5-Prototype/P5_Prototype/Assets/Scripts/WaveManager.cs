@@ -105,7 +105,7 @@ public class WaveManager : MonoBehaviour
     {
         GameObject pro = null;
         
-        
+        Flow();
  
         switch (place)
         {
@@ -151,7 +151,7 @@ public class WaveManager : MonoBehaviour
 
     void Flow()
     {
-        if (currentBlockCombo % 3 == 1)
+        if (currentBlockCombo == 1)
         {
             if (CurrentFlow > flowMin)
             {
@@ -161,7 +161,7 @@ public class WaveManager : MonoBehaviour
               
             }
         }
-        if (currentMissCombo % 3 ==1)
+        if (currentMissCombo == 2)
         {
             if (CurrentFlow < flowMax)
             {
