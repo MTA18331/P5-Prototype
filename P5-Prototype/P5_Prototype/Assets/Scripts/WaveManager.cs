@@ -165,7 +165,7 @@ public class WaveManager : MonoBehaviour
         {
             if (CurrentFlow < flowMax)
             {
-                Debug.Log(currentMissCombo % 3);
+
             CurrentFlow += 0.4f*Time.deltaTime;
             currentMissCombo=0;
              currentBlockCombo = 0;

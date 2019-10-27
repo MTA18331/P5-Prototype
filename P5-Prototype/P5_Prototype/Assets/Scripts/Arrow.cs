@@ -211,6 +211,8 @@ public class Arrow : MonoBehaviour
             transform.SetParent(collision.gameObject.transform);
             
             rigid.isKinematic = true;
+             GameObject fire = transform.GetChild(3).gameObject;
+             fire.SetActive(false);
             Destroy(gameObject, 10);
         
         }
