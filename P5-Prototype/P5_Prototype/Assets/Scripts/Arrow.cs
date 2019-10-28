@@ -16,6 +16,7 @@ public class Arrow : MonoBehaviour
     bool go = false;    
     float timeToReachTarget;
     public float t;
+    public Renderer rend;
 
    
     
@@ -209,10 +210,11 @@ public class Arrow : MonoBehaviour
             WaveManager.instance.currentBlockCombo ++;
             WaveManager.instance.currentMissCombo = 0;
             transform.SetParent(collision.gameObject.transform);
-            
             rigid.isKinematic = true;
-             GameObject fire = transform.GetChild(3).gameObject;
-             fire.SetActive(false);
+            GameObject fire = transform.GetChild(3).gameObject;
+            fire.SetActive(false);
+            
+
             Destroy(gameObject, 10);
         
         }

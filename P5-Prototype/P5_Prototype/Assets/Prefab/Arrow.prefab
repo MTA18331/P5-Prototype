@@ -164,6 +164,7 @@ MonoBehaviour:
   box: {fileID: 0}
   speed: 0.4
   t: 0
+  rend: {fileID: 4307819801098155349, guid: 636c9b962371a8f4e8fbc114ed231ce7, type: 3}
   randomStartpos: 0
   LaunchAngle: 60
   SoundClips: []
